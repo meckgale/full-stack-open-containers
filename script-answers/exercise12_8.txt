@@ -1,0 +1,85 @@
+Script started on 2026-02-26 10:20:45+03:00 [TERM="xterm-256color" TTY="/dev/pts/4" COLUMNS="177" LINES="19"]
+[?2004h]0;meck@meck-PC: ~/Documents/software/universityOfHelsinki/part12/part12-containers-applications[01;32mmeck@meck-PC[00m:[01;34m~/Documents/software/universityOfHelsinki/part12/part12-containers-applications[00m$ docker compose -f docker-x[Kcompose.dev.yml up -d
+[?2004lopen /home/meck/Documents/software/universityOfHelsinki/part12/part12-containers-applications/docker-compose.dev.yml: no such file or directory
+[?2004h]0;meck@meck-PC: ~/Documents/software/universityOfHelsinki/part12/part12-containers-applications[01;32mmeck@meck-PC[00m:[01;34m~/Documents/software/universityOfHelsinki/part12/part12-containers-applications[00m$ cd 
+.git/           script-answers/ todo-app/       
+]0;meck@meck-PC: ~/Documents/software/universityOfHelsinki/part12/part12-containers-applications[01;32mmeck@meck-PC[00m:[01;34m~/Documents/software/universityOfHelsinki/part12/part12-containers-applications[00m$ cd todo-app/todo-backend/
+[?2004l[?2004h]0;meck@meck-PC: ~/Documents/software/universityOfHelsinki/part12/part12-containers-applications/todo-app/todo-backend[01;32mmeck@meck-PC[00m:[01;34m~/Documents/software/universityOfHelsinki/part12/part12-containers-applications/todo-app/todo-backend[00m$ cd todo-app/todo-backend/docker compose -f docker-compose.dev.yml up -d
+[?2004l[?25l[0G[+] up 1/1
+ [32m✔[0m Container todo-backend-mongo-1 [32mRunning[0m                                                                                                                                    [34m0.0s[0m
+[?25h[?2004h]0;meck@meck-PC: ~/Documents/software/universityOfHelsinki/part12/part12-containers-applications/todo-app/todo-backend[01;32mmeck@meck-PC[00m:[01;34m~/Documents/software/universityOfHelsinki/part12/part12-containers-applications/todo-app/todo-backend[00m$ docker container ls
+[?2004lCONTAINER ID   IMAGE     COMMAND                  CREATED             STATUS             PORTS                                           NAMES
+be04fa70c74c   nginx     "/docker-entrypoint.…"   About an hour ago   Up About an hour   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp         distracted_greider
+6c7f63573c8c   mongo     "docker-entrypoint.s…"   11 hours ago        Up 2 hours         0.0.0.0:3456->27017/tcp, [::]:3456->27017/tcp   todo-backend-mongo-1
+[?2004h]0;meck@meck-PC: ~/Documents/software/universityOfHelsinki/part12/part12-containers-applications/todo-app/todo-backend[01;32mmeck@meck-PC[00m:[01;34m~/Documents/software/universityOfHelsinki/part12/part12-containers-applications/todo-app/todo-backend[00m$ docker exec -it todo-backend-mongo-1 bash
+[?2004l[?2004hroot@6c7f63573c8c:/# mongosh -u root -p example
+[?2004l]0;mongosh mongodb://<credentials>@127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000Current Mongosh Log ID:	699ff4f2c45d72d08d8563b0
+Connecting to:		[1m[32mmongodb://<credentials>@127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.7.0[0m
+Using MongoDB:		8.2.5
+[1m[33mUsing Mongosh[0m:		2.7.0
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+[1G[0J [1G[?2004h[1m[33m------[0m
+   [1m[33mThe server generated these startup warnings when booting[0m
+   2026-02-26T05:10:36.560+00:00: For customers running the current memory allocator, we suggest changing the contents of the following sysfsFile
+   2026-02-26T05:10:36.560+00:00: We suggest setting the contents of sysfsFile to 0.
+   2026-02-26T05:10:36.560+00:00: We suggest setting swappiness to 0 or 1, as swapping can cause performance problems.
+[1m[33m------[0m
+
+[1G[0Jtest> [7Gshow dbs
+[1madmin[0m         100.00 KiB
+[1mconfig[0m         72.00 KiB
+[1mlocal[0m          72.00 KiB
+[1mthe_database[0m   56.00 KiB
+[1G[0Jtest> [7Guse the_database
+switched to db the_database
+[1G[0Jthe_database> [15Gshow collections
+[1mtodos[0m
+[1G[0Jthe_database> [15Gdb.todos.find({})
+[
+  {
+    _id: ObjectId([32m'699f536a734b210d3e8563b1'[39m),
+    text: [32m'Write code'[39m,
+    done: [33mtrue[39m
+  },
+  {
+    _id: ObjectId([32m'699f536a734b210d3e8563b2'[39m),
+    text: [32m'Learn about containers'[39m,
+    done: [33mtrue[39m
+  }
+]
+[1G[0Jthe_database> [15Gdb.todos.insertOne({[32m"[39m[32mI[39m[32mn[39m[32mc[39m[32mr[39m[32me[39m[32ma[39m[32ms[39m[32me[39m [32mt[39m[32mh[39m[32me[39m [32mn[39m[32mu[39m[32mm[39m[32mb[39m[32me[39m[32mr[39m [32mo[39m[32mf[39m [32mt[39m[32mo[39m[32mo[39m[32ml[39m[32ms[39m [32mi[39m[32mn[39m [32mm[39m[32my[39m [32mt[39m[32mo[39m[32mo[39m[32ml[39m [32mb[39m[32me[39m[32ml[39m[32mt[39m[32m"[39m[1D[1G[0Jthe_database> db.todos.insertOne({[44m[32m"[49mIncrease the number of tools in my tool belt"[39m[80G[1D[1G[0Jthe_database> db.todos.insertOne({[32m"Increase the number of tools in my tool belt"[39m[79G[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1D[1G[0Jthe_database> db.todos.insertOne({[32m"Increase the number of tools in my tool belt[44m"[39m[49m[35G[1G[0Jthe_database> db.todos.insertOne({t[32m"Increase the number of tools in my tool belt[44m"[39m[49m[36G[1G[0Jthe_database> db.todos.insertOne({te[32m"Increase the number of tools in my tool belt[44m"[39m[49m[37G[1G[0Jthe_database> db.todos.insertOne({tex[32m"Increase the number of tools in my tool belt[44m"[39m[49m[38G[1G[0Jthe_database> db.todos.insertOne({text[32m"Increase the number of tools in my tool belt[44m"[39m[49m[39G[1G[0Jthe_database> db.todos.insertOne({[33mtext[39m:[32m"Increase the number of tools in my tool belt[44m"[39m[49m[40G[1G[0Jthe_database> db.todos.insertOne({[33mtext[39m: [32m"Increase the number of tools in my tool belt[44m"[39m[49m[41G[1C[1G[0Jthe_database> db.todos.insertOne({[33mtext[39m: [32m"Increase the number of tools in my tool belt"[39m[42G[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1C[1G[0Jthe_database> db.todos.insertOne({[33mtext[39m: [44m[32m"[49mIncrease the number of tools in my tool belt"[39m[86G[1C[1G[0Jthe_database> db.todos.insertOne({[33mtext[39m: [32m"Increase the number of tools in my tool belt"[39m[87Gm [1G[0Jthe_database> db.todos.insertOne({[33mtext[39m: [32m"Increase the number of tools in my tool belt"[39mm[88G[1G[0Jthe_database> db.todos.insertOne({[33mtext[39m: [32m"Increase the number of tools in my tool belt"[39m[87G, d[36mdo[39mdone: fals[33mfalse[39m})
+{
+  acknowledged: [33mtrue[39m,
+  insertedId: ObjectId([32m'699ff5b2c45d72d08d8563b1'[39m)
+}
+[1G[0Jthe_database> [15G[1G[0Jthe_database> db.todos.insertOne({[33mtext[39m: [32m"Increase the number of tools in my tool belt"[39m, [33mdone[39m: [33mfalse[39m})[102G[1G[0Jthe_database> db.todos.find({})[32G
+[
+  {
+    _id: ObjectId([32m'699f536a734b210d3e8563b1'[39m),
+    text: [32m'Write code'[39m,
+    done: [33mtrue[39m
+  },
+  {
+    _id: ObjectId([32m'699f536a734b210d3e8563b2'[39m),
+    text: [32m'Learn about containers'[39m,
+    done: [33mtrue[39m
+  },
+  {
+    _id: ObjectId([32m'699ff5b2c45d72d08d8563b1'[39m),
+    text: [32m'Increase the number of tools in my tool belt'[39m,
+    done: [33mfalse[39m
+  }
+]
+[1G[0Jthe_database> [15Gexit
+[?2004l]0;[?2004hroot@6c7f63573c8c:/# exit
+[?2004lexit
+[?2004h]0;meck@meck-PC: ~/Documents/software/universityOfHelsinki/part12/part12-containers-applications/todo-app/todo-backend[01;32mmeck@meck-PC[00m:[01;34m~/Documents/software/universityOfHelsinki/part12/part12-containers-applications/todo-app/todo-backend[00m$ exit
+[?2004lexit
+
+Script done on 2026-02-26 10:27:08+03:00 [COMMAND_EXIT_CODE="0"]
